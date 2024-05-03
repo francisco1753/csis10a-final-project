@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=Paddle
+comment0.text=\r\n\ Write\ a\ description\ of\ JavaFX\ class\ Paddle\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=startX\ startY
+comment1.target=Paddle(double,\ double)
+comment2.params=
+comment2.target=javafx.scene.shape.Rectangle\ getRectangle()
+comment3.params=dy\ windowHeight
+comment3.target=void\ move(int,\ int)
+numComments=4
