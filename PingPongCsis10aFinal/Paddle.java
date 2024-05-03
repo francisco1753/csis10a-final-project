@@ -8,6 +8,8 @@ import javafx.scene.paint.Color;
  * @author (your name)
  * @version (a version number or a date)
  */
+// this class makes the paddles and configures them. it also lets them move
+
 public class Paddle {
     private Rectangle rectangle;
     private static final int paddle_width = 15;

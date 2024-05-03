@@ -37,8 +37,8 @@ public class PingPongGame extends Application {
     private Rectangle rightPaddle;
     private Circle ball;
     // variables for how fast the ball will travel
-    private double ballXSpeed = 2.5;
-    private double ballYSpeed = 2.5;
+    private double ballXSpeed = 6.5;
+    private double ballYSpeed = 6.5;
     // variables for the score
     private int leftScore = 0;
     private int rightScore = 0;
