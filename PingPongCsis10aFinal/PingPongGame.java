@@ -11,58 +11,24 @@ import javafx.scene.text.Text;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import java.nio.file.Paths;
-    // main class, initializes game components and sets up game loop
+
 public class PingPongGame extends Application {
-<<<<<<< HEAD
-    private static final int window_width = 600;    //changes window height
-    private static final int window_height = 400;           // and width
-     private MediaPlayer backgroundMusic;   // for background music
+    private static final int window_width = 600;
+    private static final int window_height = 400;
+     private MediaPlayer backgroundMusic;
      
      
     public void start(Stage primaryStage) {
         Pane root = new Pane();
-=======
-    // these variables are for the window of the application.
-    //paddle sizes, and ball radius
-    private static final int window_width = 600;
-    private static final int window_height = 400;
-    private static final int paddle_width = 15;
-    private static final int paddle_height = 80;
-    private static final int ball_radius = 10;
-    // variables for paddle and making the ball
-    private Rectangle leftPaddle;
-    private Rectangle rightPaddle;
-    private Circle ball;
-    // variables for how fast the ball will travel
-    private double ballXSpeed = 6.5;
-    private double ballYSpeed = 6.5;
-    // variables for the score
-    private int leftScore = 0;
-    private int rightScore = 0;
-    // text for the score
-    private Text leftScoreText;
-    private Text rightScoreText;
-    // show if game is running or not
-    private boolean activeGame = true;
-    // variable for the background music
-    private MediaPlayer backgroundMusic;
-    //animation timer for game loop
-    private AnimationTimer gameLoop;
-    //for the keys currently pressed
-    private Set<KeyCode> keysPressed = new HashSet<>();
-    public void start(Stage primaryStage){
-        //making the scene
-        Pane root = new Pane();        
->>>>>>> 0694641e31b7e1cc6f6ffa6cd36ba3214d6aa0bf
         Scene scene = new Scene(root, window_width, window_height, Color.CORNFLOWERBLUE);
 
-        // initializes paddle, score, and ball
+        
         Paddle leftPaddle = new Paddle(20, (window_height - 80) / 2);
         Paddle rightPaddle = new Paddle(window_width - 35, (window_height - 80) / 2);
         Ball ball = new Ball(window_width / 2, window_height / 2, 2.5, 2.5);
         Score score = new Score(); 
 
-        //sets their positions
+        
         score.getLeftScoreText().setX(50); 
         score.getLeftScoreText().setY(50);
         score.getRightScoreText().setX(window_width - 100); 
@@ -71,25 +37,25 @@ public class PingPongGame extends Application {
         root.getChildren().addAll(leftPaddle.getRectangle(), rightPaddle.getRectangle(), ball.getCircle(),
                                   score.getLeftScoreText(), score.getRightScoreText());
 
-        // sets up game loop
+       
         GameLoop gameLoop = new GameLoop(root, leftPaddle, rightPaddle, ball, score, window_width, window_height);
 
         scene.setOnKeyPressed(event -> gameLoop.getKeysPressed().add(event.getCode()));
         scene.setOnKeyReleased(event -> gameLoop.getKeysPressed().remove(event.getCode()));
-        // starts it
+
         gameLoop.start(); 
-            //file path for music
-        String musicPath = Paths.get("background_music1.mp3").toUri().toString();  
+
+        String musicPath = Paths.get("background_music1.mp3").toUri().toString(); 
         backgroundMusic = new MediaPlayer(new Media(musicPath));
-        backgroundMusic.setCycleCount(MediaPlayer.INDEFINITE);  //loops music
-        backgroundMusic.play(); //plays the music
+        backgroundMusic.setCycleCount(MediaPlayer.INDEFINITE);  
+        backgroundMusic.play();
         
         String catInBoxTextArt =  """
         ,-.       _,---._ __  / \\
         /  )    .-'       `./ /   \\
        (  (   ,' first      `/    /|
         \\  `-"   to        \\'\\   / |
-         `.     5       ,  \\ \\ /  |
+         `.     15       ,  \\ \\ /  |
           /`.   wins   ,'-`----Y   |
          (   SIGMA    ;        |   '
          |  ,-.    ,-'         |  /
@@ -104,9 +70,11 @@ public class PingPongGame extends Application {
        textArt.setY(window_height / 2);
         root.getChildren().add(textArt);
         
-        primaryStage.setScene(scene);   //sets scene on stage
-        primaryStage.show();    //show the stage
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
-    
-}
+    public static void main(String[] args) {
+        launch(args);
+    }
+}  
