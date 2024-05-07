@@ -1,71 +1,112 @@
+import javafx.animation.AnimationTimer;
+import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import java.util.HashSet;
+import java.util.Set;
+// class to handle main game loop, updates game state, checking winning condition
+// also manages paddle movement and interactions with the ball
+public class GameLoop extends AnimationTimer {
+    private final Pane gamePane; // area for game
+    private final Paddle leftPaddle;
+    private final Paddle rightPaddle;
+    private final Ball ball;
+    private final Score score;
+    private final Set<KeyCode> keysPressed = new HashSet<>();// set for pressed keys
+    private final int windowWidth; 
+    private final int windowHeight;
+    private boolean activeGame = true; // controls game loop
+// initializes game loop with required objects
+    public GameLoop(Pane gamePane, Paddle leftPaddle, Paddle rightPaddle, Ball ball, Score score, int windowWidth, int windowHeight) {
+        this.gamePane = gamePane;
+        this.leftPaddle = leftPaddle;
+        this.rightPaddle = rightPaddle;
+        this.ball = ball;
+        this.score = score;
+        this.windowWidth = windowWidth;
+        this.windowHeight = windowHeight;
+        }
 
-
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
-
-/**
- * Write a description of JavaFX class GameLoop here.
- *
- * @author (your name)
- * @version (a version number or a date)
- */
-public class GameLoop extends Application
-{
-    // We keep track of the count, and label displaying the count:
-    private int count = 0;
-    private Label myLabel = new Label("0");
-
-    /**
-     * The start method is the main entry point for every JavaFX application. 
-     * It is called after the init() method has returned and after 
-     * the system is ready for the application to begin running.
-     *
-     * @param  stage the primary stage for this application.
-     */
     @Override
-    public void start(Stage stage)
-    {
-        // Create a Button or any control item
-        Button myButton = new Button("Count");
-
-        // Create a new grid pane
-        GridPane pane = new GridPane();
-        pane.setPadding(new Insets(10, 10, 10, 10));
-        pane.setMinSize(300, 300);
-        pane.setVgap(10);
-        pane.setHgap(10);
-
-        //set an action on the button using method reference
-        myButton.setOnAction(this::buttonClick);
-
-        // Add the button and label into the pane
-        pane.add(myLabel, 1, 0);
-        pane.add(myButton, 0, 0);
-
-        // JavaFX must have a Scene (window content) inside a Stage (window)
-        Scene scene = new Scene(pane, 300,100);
-        stage.setTitle("JavaFX Example");
-        stage.setScene(scene);
-
-        // Show the Stage (window)
-        stage.show();
+    public void handle(long now) {
+        if (activeGame) { //makes sure game is running
+            updateGame();   // updates game state
+            checkWinner();  //checks if game should end
+        }
     }
 
-    /**
-     * This will be executed when the button is clicked
-     * It increments the count by 1
-     */
-    private void buttonClick(ActionEvent event)
-    {
-        // Counts number of button clicks and shows the result on a label
-        count = count + 1;
-        myLabel.setText(Integer.toString(count));
+    private void updateGame() {
+        ball.updatePosition(); //updates ball position
+
+        // checks if ball hits top or bottom 
+        if (ball.hitsTopOrBottom(windowHeight)) {
+            ball.bounceVertical();  // reverses the directions
+        }
+        // same thing but with the paddle
+        if (ball.getCircle().intersects(leftPaddle.getRectangle().getBoundsInParent()) || 
+            ball.getCircle().intersects(rightPaddle.getRectangle().getBoundsInParent())) {
+            ball.bounceHorizontal();
+        }
+
+        double ballRadius = ball.getRadius(); // accesses ball radius
+        //checks if ball is out of bounds, if it is, score increases
+        if (ball.getCircle().getCenterX() - ballRadius <= 0) {
+            score.increaseRightScore();
+            ball.reset(windowWidth / 2, windowHeight / 2);
+        } else if (ball.getCircle().getCenterX() + ballRadius >= windowWidth) {
+            score.increaseLeftScore();
+            ball.reset(windowWidth / 2, windowHeight / 2);
+        }
+
+        // keys for paddle movement
+        if (keysPressed.contains(KeyCode.W)) {
+            leftPaddle.move(-10, windowHeight);
+        } else if (keysPressed.contains(KeyCode.S)) {
+            leftPaddle.move(10, windowHeight);
+        }
+
+        if (keysPressed.contains(KeyCode.UP)) {
+            rightPaddle.move(-10, windowHeight);
+        } else if (keysPressed.contains(KeyCode.DOWN)) {
+            rightPaddle.move(10, windowHeight);
+        }
+    }
+        // checks for who won
+         private void checkWinner() {
+            if (score.getLeftScore() >= 5) { 
+                declareWinner("Left");
+            } else if (score.getRightScore() >= 5) { 
+            declareWinner("Right");
+            }              
+    }
+
+        //declares who won
+    private void declareWinner(String winner) {
+        activeGame = false; //also stops the game
+        // configuring the winner text
+        Text winnerText = new Text(winner + " player wins");
+        winnerText.setFont(Font.font("Comic Sans MS", 30));
+        winnerText.setFill(javafx.scene.paint.Color.WHITE);
+        winnerText.setX((windowWidth - winnerText.getBoundsInLocal().getWidth()) / 2);
+        winnerText.setY(windowHeight / 2 - 120);
+
+        gamePane.getChildren().add(winnerText);
+
+        // funny image that appears at the end of the game
+        Image gojo = new Image("file:gojo.png");
+        ImageView imageView = new ImageView(gojo);
+        imageView.setFitWidth(250);
+        imageView.setFitHeight(250);
+        imageView.setX(10);
+        imageView.setY(windowHeight - 275); 
+
+        gamePane.getChildren().add(imageView);
+    }
+
+    public Set<KeyCode> getKeysPressed() {
+        return keysPressed;
     }
 }

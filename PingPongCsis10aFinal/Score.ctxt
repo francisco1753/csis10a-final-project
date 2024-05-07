@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=Score
+comment1.params=
+comment1.target=Score()
+comment2.params=
+comment2.target=javafx.scene.text.Text\ getLeftScoreText()
+comment3.params=
+comment3.target=javafx.scene.text.Text\ getRightScoreText()
+comment4.params=
+comment4.target=void\ increaseLeftScore()
+comment5.params=
+comment5.target=void\ increaseRightScore()
+comment6.params=
+comment6.target=int\ getLeftScore()
+comment7.params=
+comment7.target=int\ getRightScore()
+numComments=8

@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=GameLoop
+comment1.params=gamePane\ leftPaddle\ rightPaddle\ ball\ score\ windowWidth\ windowHeight
+comment1.target=GameLoop(javafx.scene.layout.Pane,\ Paddle,\ Paddle,\ Ball,\ Score,\ int,\ int)
+comment2.params=now
+comment2.target=void\ handle(long)
+comment3.params=
+comment3.target=void\ updateGame()
+comment4.params=
+comment4.target=void\ checkWinner()
+comment5.params=winner
+comment5.target=void\ declareWinner(java.lang.String)
+comment6.params=
+comment6.target=java.util.Set\ getKeysPressed()
+numComments=7

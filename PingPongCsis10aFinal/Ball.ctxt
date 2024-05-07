@@ -1,0 +1,21 @@
+#BlueJ class context
+comment0.target=Ball
+comment1.params=startX\ startY\ initialXSpeed\ initialYSpeed
+comment1.target=Ball(double,\ double,\ double,\ double)
+comment2.params=
+comment2.target=javafx.scene.shape.Circle\ getCircle()
+comment3.params=
+comment3.target=double\ getRadius()
+comment4.params=
+comment4.target=void\ updatePosition()
+comment5.params=
+comment5.target=void\ bounceVertical()
+comment6.params=
+comment6.target=void\ bounceHorizontal()
+comment7.params=centerX\ centerY
+comment7.target=void\ reset(double,\ double)
+comment8.params=windowHeight
+comment8.target=boolean\ hitsTopOrBottom(int)
+comment9.params=windowWidth
+comment9.target=boolean\ isOutOfBounds(int)
+numComments=10
