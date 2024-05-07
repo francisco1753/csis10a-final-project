@@ -13,6 +13,7 @@ import javafx.scene.image.ImageView;
 import java.nio.file.Paths;
     // main class, initializes game components and sets up game loop
 public class PingPongGame extends Application {
+<<<<<<< HEAD
     private static final int window_width = 600;    //changes window height
     private static final int window_height = 400;           // and width
      private MediaPlayer backgroundMusic;   // for background music
@@ -20,6 +21,39 @@ public class PingPongGame extends Application {
      
     public void start(Stage primaryStage) {
         Pane root = new Pane();
+=======
+    // these variables are for the window of the application.
+    //paddle sizes, and ball radius
+    private static final int window_width = 600;
+    private static final int window_height = 400;
+    private static final int paddle_width = 15;
+    private static final int paddle_height = 80;
+    private static final int ball_radius = 10;
+    // variables for paddle and making the ball
+    private Rectangle leftPaddle;
+    private Rectangle rightPaddle;
+    private Circle ball;
+    // variables for how fast the ball will travel
+    private double ballXSpeed = 6.5;
+    private double ballYSpeed = 6.5;
+    // variables for the score
+    private int leftScore = 0;
+    private int rightScore = 0;
+    // text for the score
+    private Text leftScoreText;
+    private Text rightScoreText;
+    // show if game is running or not
+    private boolean activeGame = true;
+    // variable for the background music
+    private MediaPlayer backgroundMusic;
+    //animation timer for game loop
+    private AnimationTimer gameLoop;
+    //for the keys currently pressed
+    private Set<KeyCode> keysPressed = new HashSet<>();
+    public void start(Stage primaryStage){
+        //making the scene
+        Pane root = new Pane();        
+>>>>>>> 0694641e31b7e1cc6f6ffa6cd36ba3214d6aa0bf
         Scene scene = new Scene(root, window_width, window_height, Color.CORNFLOWERBLUE);
 
         // initializes paddle, score, and ball
