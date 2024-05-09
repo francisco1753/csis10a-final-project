@@ -16,6 +16,4 @@ comment7.params=centerX\ centerY
 comment7.target=void\ reset(double,\ double)
 comment8.params=windowHeight
 comment8.target=boolean\ hitsTopOrBottom(int)
-comment9.params=windowWidth
-comment9.target=boolean\ isOutOfBounds(int)
-numComments=10
+numComments=9

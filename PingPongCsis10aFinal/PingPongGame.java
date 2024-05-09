@@ -13,17 +13,18 @@ import javafx.scene.image.ImageView;
 import java.nio.file.Paths;
 
 public class PingPongGame extends Application {
-    private static final int window_width = 600;
-    private static final int window_height = 400;
+    private static final int window_width = 600; // variables for window width
+    private static final int window_height = 400;// and height, these are
+    // immutable so they won't change
      private MediaPlayer backgroundMusic;
-     
+     // media player variable for the music
      
     public void start(Stage primaryStage) {
         Pane root = new Pane();
         Scene scene = new Scene(root, window_width, window_height, Color.CORNFLOWERBLUE);
-
-        
-        Paddle leftPaddle = new Paddle(20, (window_height - 80) / 2);
+        // game scene with the background
+        // variable for paddles and balls
+        Paddle leftPaddle = new Paddle(20, (window_height - 80) / 2); 
         Paddle rightPaddle = new Paddle(window_width - 35, (window_height - 80) / 2);
         Ball ball = new Ball(window_width / 2, window_height / 2, 2.5, 2.5);
         Score score = new Score(); 
@@ -33,20 +34,22 @@ public class PingPongGame extends Application {
         score.getLeftScoreText().setY(50);
         score.getRightScoreText().setX(window_width - 100); 
         score.getRightScoreText().setY(50);
-
+        //adds stuff to the scene
         root.getChildren().addAll(leftPaddle.getRectangle(), rightPaddle.getRectangle(), ball.getCircle(),
                                   score.getLeftScoreText(), score.getRightScoreText());
 
-       
+       // game loop object
         GameLoop gameLoop = new GameLoop(root, leftPaddle, rightPaddle, ball, score, window_width, window_height);
-
+        // pressing and releasing keys
         scene.setOnKeyPressed(event -> gameLoop.getKeysPressed().add(event.getCode()));
         scene.setOnKeyReleased(event -> gameLoop.getKeysPressed().remove(event.getCode()));
 
         gameLoop.start(); 
-
+        //goes through the directory to find mp3 file
         String musicPath = Paths.get("background_music1.mp3").toUri().toString(); 
+        // adds it to the media
         backgroundMusic = new MediaPlayer(new Media(musicPath));
+        //loops it 
         backgroundMusic.setCycleCount(MediaPlayer.INDEFINITE);  
         backgroundMusic.play();
         
@@ -55,9 +58,9 @@ public class PingPongGame extends Application {
         /  )    .-'       `./ /   \\
        (  (   ,' first      `/    /|
         \\  `-"   to        \\'\\   / |
-         `.     15       ,  \\ \\ /  |
+         `.        5     ,  \\ \\ /  |
           /`.   wins   ,'-`----Y   |
-         (   SIGMA    ;        |   '
+         (            ;        |   '
          |  ,-.    ,-'         |  /
          |  | (   |         | /
          )  |  \\  `.___________|/
@@ -74,7 +77,5 @@ public class PingPongGame extends Application {
         primaryStage.show();
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+    
 }  

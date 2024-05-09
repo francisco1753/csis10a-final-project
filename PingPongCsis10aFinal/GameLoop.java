@@ -52,10 +52,10 @@ public class GameLoop extends AnimationTimer {
         }
 
         double ballRadius = ball.getRadius(); // accesses ball radius
-        //checks if ball is out of bounds, if it is, score increases
+        //checks if ball is out of bounds by detecting the x axis. if it is, score increases
         if (ball.getCircle().getCenterX() - ballRadius <= 0) {
             score.increaseRightScore();
-            ball.reset(windowWidth / 2, windowHeight / 2);
+            ball.reset(windowWidth / 2, windowHeight / 2);  //puts ball back to center
         } else if (ball.getCircle().getCenterX() + ballRadius >= windowWidth) {
             score.increaseLeftScore();
             ball.reset(windowWidth / 2, windowHeight / 2);

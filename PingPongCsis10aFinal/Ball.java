@@ -49,9 +49,6 @@ public class Ball {
     public boolean hitsTopOrBottom(int windowHeight) {
         return circle.getCenterY() - ball_radius <= 0 || circle.getCenterY() + ball_radius >= windowHeight;
     }
-    // or if its out of the game window
-    public boolean isOutOfBounds(int windowWidth) {
-        return circle.getCenterX() - ball_radius <= 0 || circle.getCenterX() + ball_radius >= windowWidth;
-
-    }
+   
+    
 } 
